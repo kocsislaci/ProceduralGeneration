@@ -8,6 +8,7 @@ public class PlayerController : NetworkBehaviour
 
     [SerializeField] private Material[] playerSkins;
     [SerializeField] private MeshRenderer flagMesh;
+    [SerializeField] private Rigidbody rigidbody;
     private void Awake() { }
 
     public override void OnNetworkSpawn()
@@ -18,7 +19,7 @@ public class PlayerController : NetworkBehaviour
 
         int spawnIndex = connectedClients.Count % spawnPoints.transform.childCount;
 
-        Debug.Log("wtf index: " + spawnIndex + " clients " + connectedClients.Count + " spawnpoints " + spawnPoints.transform.childCount);
+        Debug.Log("hello index: " + spawnIndex + " clients " + connectedClients.Count + " spawnpoints " + spawnPoints.transform.childCount);
         Transform spawnPoint = spawnPoints.transform.GetChild(spawnIndex);
 
         transform.position = spawnPoint.position;
@@ -40,7 +41,7 @@ public class PlayerController : NetworkBehaviour
     private void Move()
     {
         float movement = 0f;
-        float movementSpeed = 5f;
+        float movementSpeed = 40f;
         float rotation = 0f;
         float rotationSpeed = 80f;
 
@@ -54,8 +55,9 @@ public class PlayerController : NetworkBehaviour
     [ServerRpc]
     private void MoveServerRpc(float movement, float rotation)
     {
-        transform.Translate(Vector3.forward * movement * Time.deltaTime);
-        transform.RotateAround(transform.position, Vector3.up, rotation * Time.deltaTime);
+        Quaternion deltaRotation = Quaternion.Euler(0, rotation * Time.deltaTime, 0);
+        rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
+        rigidbody.MovePosition(transform.position + transform.forward * movement * Time.deltaTime);
     }
 
     void SetColor(long skinId)

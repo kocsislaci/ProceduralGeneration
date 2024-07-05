@@ -11,7 +11,8 @@ public class CameraController : MonoBehaviour
         {
             player = NetworkManager.Singleton.LocalClient.PlayerObject;
             transform.parent = player.transform;
-            transform.localPosition = new Vector3(0, 3.0f, -7.0f);
+            transform.localPosition = new Vector3(0, 15.0f, 0.0f);
+            transform.LookAt(player.transform.position);
         }
     }
 }
