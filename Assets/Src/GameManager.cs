@@ -1,39 +1,44 @@
-using Mono.Cecil.Cil;
 using Unity.Netcode;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private Generator generator;
+    [SerializeField] private MazeSpawner spawner;
+    [SerializeField] private int Size = 100;
 
-    [SerializeField] private GameObject BlockPrefab;
-    [SerializeField] private GameObject CheesePrefab;
+    Maze maze;
 
-    Map map;
+    GameObject cheese;
 
     void Start()
     {
-        map = new DefaultMap();
-        map.BlockPrefab = BlockPrefab;
-        map.CheesePrefab = CheesePrefab;
         NetworkManager.Singleton.OnServerStarted += OnServerStart;
     }
 
-    public void OnServerStart() {
-        map.Maze = map.GenerateMap(map.Size);
-
-        map.SpawnMaze(map.Maze, map.Size);
+    public void OnServerStart()
+    {
+        maze = generator.GenerateMaze(Size);
+        spawner.SpawnMaze(maze);
 
         OnCheese();
     }
 
-    public void OnCheese() {
+    public void OnCheese()
+    {
+        Vector2Int? currentCheesePos = cheese ? Maze.WorldPosToCoords(cheese.transform.position) : null;
+        var cheesePos = generator.GenerateCheese(maze, getPlayerPosiitons(), currentCheesePos);
+        cheese = spawner.SpawnCheese(maze, cheesePos);
+    }
 
-        var cheesePos = map.GenerateCheese(map.Maze);
-        map.SpawnCheese(cheesePos.x, cheesePos.y, map.Size);
+    public Vector3[] getPlayerPosiitons()
+    {
+        return new Vector3[] { };
     }
 }
 
-interface Map {
+interface Map
+{
 
     public GameObject BlockPrefab { get; set; }
     public GameObject CheesePrefab { get; set; }
@@ -47,7 +52,8 @@ interface Map {
 
 }
 
-class DefaultMap: MonoBehaviour, Map {
+class DefaultMap : MonoBehaviour, Map
+{
 
     public GameObject BlockPrefab { get; set; }
     public GameObject CheesePrefab { get; set; }
@@ -131,6 +137,7 @@ class DefaultMap: MonoBehaviour, Map {
         var mapOffset = size / 2;
         var gridOffset = 0.5f;
         var pos = new Vector3(x - mapOffset + gridOffset, 0, y - mapOffset + gridOffset);
-        var obstacle = Instantiate(CheesePrefab, pos, new Quaternion());
+
+        Instantiate(CheesePrefab, pos, new Quaternion());
     }
 }
