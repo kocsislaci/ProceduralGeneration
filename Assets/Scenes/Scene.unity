@@ -1635,7 +1635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf841fc031b946909f3a8d867746b2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockPrefab: {fileID: 1127339120656683948, guid: 02e1d79b242694d54815dab04f2625b7, type: 3}
+  BlockPrefab: {fileID: 2302155226817949539, guid: 6a144a46772164582bb75bcf0d81bc07, type: 3}
   CheesePrefab: {fileID: 1010779219342674, guid: 01b73c6adbc49e547a4050d07ce31bca, type: 3}
 --- !u!114 &1200728392
 MonoBehaviour:
@@ -1878,7 +1878,7 @@ PrefabInstance:
       objectReference: {fileID: 527877909}
     - target: {fileID: 1127339120656683943, guid: 02e1d79b242694d54815dab04f2625b7, type: 3}
       propertyPath: m_VersionIndex
-      value: 4789
+      value: 4795
       objectReference: {fileID: 0}
     - target: {fileID: 1127339120656683943, guid: 02e1d79b242694d54815dab04f2625b7, type: 3}
       propertyPath: m_Tangents.Array.data[33].w
@@ -2018,7 +2018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1127339120656683948, guid: 02e1d79b242694d54815dab04f2625b7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02e1d79b242694d54815dab04f2625b7, type: 3}
