@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class MazeSpawner : MonoBehaviour
@@ -7,6 +8,8 @@ public class MazeSpawner : MonoBehaviour
 
     [SerializeField] private GameObject BlockPrefab;
     [SerializeField] private GameObject CheesePrefab;
+
+    [SerializeField] private GameObject MazeParent;
 
     private float gridOffset = 0.5f;
 
@@ -30,12 +33,15 @@ public class MazeSpawner : MonoBehaviour
     public void SpawnObstacle(int x, int y, int size)
     {
         var pos = new Vector3(x - maze.GetCoordOffset() + gridOffset, 0, y - maze.GetCoordOffset() + gridOffset);
-        Instantiate(BlockPrefab, pos, new Quaternion());
+        GameObject obstacle = Instantiate(BlockPrefab, pos, new Quaternion(), MazeParent.transform);
+        obstacle.GetComponent<NetworkObject>().Spawn();
     }
 
     public GameObject SpawnCheese(Maze maze, Vector2Int coords)
     {
         var pos = new Vector3(coords.x - maze.GetCoordOffset() + gridOffset, 0, coords.y - maze.GetCoordOffset() + gridOffset);
-        return Instantiate(CheesePrefab, pos, new Quaternion());
+        var cheese =  Instantiate(CheesePrefab, pos, new Quaternion(), MazeParent.transform);
+        cheese.GetComponent<NetworkObject>().Spawn();
+        return cheese;
     }
 }

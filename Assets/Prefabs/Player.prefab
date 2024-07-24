@@ -47,14 +47,14 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3810703638589337990}
   serializedVersion: 2
-  m_Mass: 10000
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 1
+  m_Interpolate: 2
+  m_Constraints: 84
+  m_CollisionDetection: 2
 --- !u!136 &7865830365493178196
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -103,21 +103,21 @@ MonoBehaviour:
   SyncPositionX: 1
   SyncPositionY: 0
   SyncPositionZ: 1
-  SyncRotAngleX: 0
+  SyncRotAngleX: 1
   SyncRotAngleY: 1
-  SyncRotAngleZ: 0
+  SyncRotAngleZ: 1
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
+  UseQuaternionSynchronization: 1
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
   InLocalSpace: 0
   Interpolate: 1
-  SlerpPosition: 0
+  SlerpPosition: 1
 --- !u!114 &1938763441384375531
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,9 +41,9 @@ public class PlayerController : NetworkBehaviour
     private void Move()
     {
         float movement = 0f;
-        float movementSpeed = 40f;
+        float movementSpeed = 10f;
         float rotation = 0f;
-        float rotationSpeed = 80f;
+        float rotationSpeed = 60f;
 
         if (Input.GetKey(KeyCode.W)) movement = +movementSpeed;
         if (Input.GetKey(KeyCode.S)) movement = -movementSpeed;
@@ -58,6 +58,7 @@ public class PlayerController : NetworkBehaviour
         Quaternion deltaRotation = Quaternion.Euler(0, rotation * Time.deltaTime, 0);
         rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
         rigidbody.MovePosition(transform.position + transform.forward * movement * Time.deltaTime);
+        
     }
 
     void SetColor(long skinId)
