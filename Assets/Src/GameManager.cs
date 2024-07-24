@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
@@ -36,13 +36,20 @@ public class GameManager : MonoBehaviour
         spawner.SpawnMaze(maze);
 
         OnCheese();
+
+        cheese.GetComponent<CheeseController>().OnCheeseCollected.AddListener(SetWinnerTextsClientRpc);
+    }
+
+    [ClientRpc]
+    public void SetWinnerTextsClientRpc(string winner) {
+        UIManager.Instance.SetWinnerText(winner);
     }
 
     public void OnCheese()
     {
         Vector2Int? currentCheesePos = cheese ? Maze.WorldPosToCoords(cheese.transform.position) : null;
         var cheesePos = generator.GenerateCheese(maze, getPlayerPosiitons(), currentCheesePos);
-        cheese = spawner.SpawnCheese(maze, cheesePos);
+        cheese = spawner.SpawnCheese(maze, new Vector2Int(5, 5));
     }
 
     public Vector3[] getPlayerPosiitons()
