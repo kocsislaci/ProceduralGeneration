@@ -49,7 +49,7 @@ public class GameManager : NetworkBehaviour
     {
         Vector2Int? currentCheesePos = cheese ? Maze.WorldPosToCoords(cheese.transform.position) : null;
         var cheesePos = generator.GenerateCheese(maze, getPlayerPosiitons(), currentCheesePos);
-        cheese = spawner.SpawnCheese(maze, new Vector2Int(5, 5));
+        cheese = spawner.SpawnCheese(maze, cheesePos);
     }
 
     public Vector3[] getPlayerPosiitons()

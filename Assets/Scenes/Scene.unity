@@ -1368,6 +1368,7 @@ GameObject:
   - component: {fileID: 1200728390}
   - component: {fileID: 1200728389}
   - component: {fileID: 1200728392}
+  - component: {fileID: 1200728394}
   - component: {fileID: 1200728391}
   - component: {fileID: 1200728393}
   m_Layer: 0
@@ -1389,7 +1390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f495c1a5b3b4956a833d0580ea6984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 1200728392}
+  generator: {fileID: 1200728394}
   spawner: {fileID: 1200728391}
   Size: 100
 --- !u!4 &1200728390
@@ -1453,6 +1454,18 @@ MonoBehaviour:
   SceneMigrationSynchronization: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &1200728394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200728388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83358193f444d457aa5e95796c768597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200768371
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,6 +2042,7 @@ GameObject:
   - component: {fileID: 1536468913}
   - component: {fileID: 1536468912}
   - component: {fileID: 1536468911}
+  - component: {fileID: 1536468915}
   m_Layer: 0
   m_Name: Preview
   m_TagString: Untagged
@@ -2075,7 +2089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb394441ceed4c9da13fcaf6237191e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generator: {fileID: 1536468912}
+  generator: {fileID: 1536468915}
   spawner: {fileID: 1536468911}
   Size: 100
 --- !u!4 &1536468914
@@ -2093,6 +2107,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536468915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536468910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83358193f444d457aa5e95796c768597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1556916251
 GameObject:
   m_ObjectHideFlags: 0
