@@ -13,12 +13,28 @@ enum UIState {
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance { get; private set; }
+
+    private void SetSingleton()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     [SerializeField] private Button hostButton;
     [SerializeField] private Button serverButton;
     [SerializeField] private Button clientButton;
     [SerializeField] private Button disconnectButton;
 
     [SerializeField] private TMP_InputField ipInput;
+
+    [SerializeField] private TMP_Text winnerText;
 
     private UIState uiState;
     internal UIState UIState
@@ -51,6 +67,8 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
+        SetSingleton();
+
         UIState = UIState.Disconnected;
 
         hostButton.onClick.AddListener(() =>
@@ -80,5 +98,11 @@ public class UIManager : MonoBehaviour
                 transport.SetConnectionData(value, 7777);
              }
         });
+    }
+
+    public void SetWinnerText(string winner)
+    {
+        winnerText.gameObject.SetActive(true);
+        winnerText.text = winner + " has found the cheese!";
     }
 }

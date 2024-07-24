@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour
 {
     private NetworkObject networkObject;
-
+    private String playerName;
+    public string PlayerName { get => playerName; private set => playerName = value; }
     [SerializeField] private Material[] playerSkins;
     [SerializeField] private MeshRenderer flagMesh;
     [SerializeField] private Rigidbody rigidbody;
+
+
     private void Awake() { }
 
     public override void OnNetworkSpawn()
@@ -65,5 +68,6 @@ public class PlayerController : NetworkBehaviour
     {
         Debug.Log($"Set Player #{OwnerClientId} color to #{skinId}");
         flagMesh.materials = new Material[] { playerSkins[skinId] };
+        PlayerName = playerSkins[skinId].color.ToString();
     }
 }
