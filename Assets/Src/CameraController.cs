@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
         {
             player = NetworkManager.Singleton.LocalClient.PlayerObject;
             transform.parent = player.transform;
-            transform.localPosition = new Vector3(0, 15.0f, 0.0f);
+            transform.localPosition = new Vector3(0, 30.0f, 0.0f);
             transform.LookAt(player.transform.position, Vector3.forward);
         }
         if (player && isFixed) {
