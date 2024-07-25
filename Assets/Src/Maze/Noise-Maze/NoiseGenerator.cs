@@ -5,6 +5,7 @@ using UnityEngine;
 public class NoiseGenerator : Generator
 {
     [SerializeField] int scale = 10;
+    [SerializeField] int seed = 0;
 
     private bool isCheeseArea(int x, int y)
     {
@@ -21,14 +22,18 @@ public class NoiseGenerator : Generator
         return x == 0 || y == 0 || x == size - 1 || y == size - 1;
     }
 
-    private bool isSolution(int x, int y, int size)
-    {
-        return Mathf.Abs(x - y) <= 1;
-    }
-
     public override Vector2Int GenerateCheese(Maze maze, Vector3[] playerPositions, Vector2Int? currentCheese)
     {
         return new Vector2Int(95, 95);
+    }
+
+    private Vector2Int pathByParam(int i, int size) {
+         float noise = 0.5f - Mathf.PerlinNoise((float)i / size * scale, 1 + seed);
+            int ampl = 50 - Mathf.Abs(50 - i);
+            int offset = (int)Mathf.Round(noise * ampl);
+            int x = i - offset;
+            int y = i + offset;
+            return new Vector2Int(x, y);
     }
 
     public override Maze GenerateMaze(int size)
@@ -50,19 +55,30 @@ public class NoiseGenerator : Generator
                     continue;
                 }
 
-
-                if (isSolution(x, y, size))
-                {
-                    maze.Set(x, y, false);
-                    continue;
-                }
-
-
-                // var val = Mathf.PerlinNoise(((float)x) / size * scale, ((float)y) / size * scale);
-                // maze.Set(x, y, Mathf.Abs(val - 0.5f) > 0.1f);
-                maze.Set(x, y, true);
+                var val = Mathf.PerlinNoise(((float)x) / size * scale, ((float)y) / size * scale + seed);
+                maze.Set(x, y, Mathf.Abs(val - 0.5f) > 0.1f);
             }
         }
+
+        for (int i = 0; i < 100; i++)
+        {
+            var now = pathByParam(i, size);
+            var next = pathByParam(i + 1, size);
+
+            var dist = Vector2Int.Distance(now, next);
+            var dir = (next - (Vector2)now).normalized;
+            for(int p = 0; p < dist; p++) {
+                var px = (int)Mathf.Round(p * dir.x);
+                var py = (int)Mathf.Round(p * dir.y);
+
+                maze.Set(now.x + px, now.y + py, false);
+                maze.Set(now.x + px, now.y + py +1, false);
+                // maze.Set(now.x + px + 1, now.y + py +1, false);
+                maze.Set(now.x + px + 1, now.y + py, false);
+
+            }
+        }
+
         return maze;
     }
 }

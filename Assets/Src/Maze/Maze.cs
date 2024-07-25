@@ -18,6 +18,9 @@ public class Maze
 
     public void Set(int x, int y, bool value)
     {
+        if (x < 0  || y < 0 || x >= Size || y >= Size) {
+            return;
+        }
         TileMap[x, y] = value;
     }
 
