@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (!player)
+        if (!player && NetworkManager.Singleton.LocalClient != null)
         {
             player = NetworkManager.Singleton.LocalClient.PlayerObject;
             transform.parent = player.transform;
