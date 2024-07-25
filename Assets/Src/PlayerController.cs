@@ -61,13 +61,14 @@ public class PlayerController : NetworkBehaviour
         Quaternion deltaRotation = Quaternion.Euler(0, rotation * Time.deltaTime, 0);
         rigidbody.MoveRotation(rigidbody.rotation * deltaRotation);
         rigidbody.MovePosition(transform.position + transform.forward * movement * Time.deltaTime);
-        
+
     }
 
     void SetColor(long skinId)
     {
         Debug.Log($"Set Player #{OwnerClientId} color to #{skinId}");
-        flagMesh.materials = new Material[] { playerSkins[skinId] };
-        PlayerName = playerSkins[skinId].color.ToString();
+        var clampedSkinId = skinId % playerSkins.Length;
+        flagMesh.materials = new Material[] { playerSkins[clampedSkinId] };
+        PlayerName = playerSkins[clampedSkinId].color.ToString();
     }
 }
