@@ -33,7 +33,8 @@ public class MazeSpawner : MonoBehaviour
     public void SpawnObstacle(int x, int y, int size)
     {
         var pos = new Vector3(x - maze.GetCoordOffset() + gridOffset, 0, y - maze.GetCoordOffset() + gridOffset);
-        GameObject obstacle = Instantiate(BlockPrefab, pos, new Quaternion(), MazeParent.transform);
+        GameObject obstacle = Instantiate(BlockPrefab, pos, new Quaternion());
+        obstacle.transform.parent = MazeParent.transform;
         NetworkObject network = obstacle.GetComponent<NetworkObject>();
         if (network != null)
         {
@@ -44,7 +45,7 @@ public class MazeSpawner : MonoBehaviour
     public GameObject SpawnCheese(Maze maze, Vector2Int coords)
     {
         var pos = new Vector3(coords.x - maze.GetCoordOffset() + gridOffset, 0, coords.y - maze.GetCoordOffset() + gridOffset);
-        var cheese = Instantiate(CheesePrefab, pos, new Quaternion(), MazeParent.transform);
+        var cheese = Instantiate(CheesePrefab, pos, new Quaternion());
         cheese.GetComponent<NetworkObject>().Spawn();
         return cheese;
     }
